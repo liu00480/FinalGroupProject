@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Recipe</string>
+    <string name="favorite">Favorite</string>
+    <string name="go">Go</string>
+    <string name="displaySearch">Displaying search result...</string>
+    <string name="displayFavorite">Displaying favorite result...</string>
+    <string name="savebutton">Save</string>
+    <string name="deletebutton">Delete</string>
+    <string name="toast_message">saved to favorites</string>
+    <string name="deleteFavorite">You are about to delete this from your favorite list, continue?</string>
+    <string name="alerttitle">Delete from favorite list</string>
+    <string name="helpStr">Help</string>
+    <string name="helpText">Input the name of recipe into the search box, click go button to search. Click the
+    Favorite button to display saved list of recipes. click on any of the list item will display the details of
+    the selected recipe.</string>
+    <string name="helptitle">Help</string>
+</resources>
