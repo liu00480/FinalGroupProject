@@ -32,6 +32,23 @@ public class DetailsFragment extends Fragment {
     private long id;
     private AppCompatActivity parentActivity;
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     * This is optional, and non-graphical fragments can return null
+     * (which is the default implementation). This will be called between
+     * onCreate(android.os.Bundle) and onActivityCreated(android.os.Bundle).
+     * @param inflater LayoutInflater: The LayoutInflater object that can be
+     *                 used to inflate any views in the fragment,
+     * @param container ViewGroup: If non-null, this is the parent view that
+     *                  the fragment's UI should be attached to. The fragment
+     *                  should not add the view itself, but this can be used
+     *                  to generate the LayoutParams of the view. This value
+     *                  may be null.
+     * @param savedInstanceState Bundle: If non-null, this fragment is being
+     *                           re-constructed from a previous saved state
+     *                           as given here.
+     * @return Return the View for the fragment's UI, or null.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,17 +58,6 @@ public class DetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View result =  inflater.inflate(R.layout.fragment_details, container, false);
 
-
-/*
-        // get the delete button, and add a click listener:
-        Button hideButton = (Button)result.findViewById(R.id.hide);
-        hideButton.setOnClickListener( clk -> {
-            //Tell the parent activity to remove
-            parentActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
-        });
-
-        return result;
-  */
         TextView tv_title =result.findViewById(R.id.title);
         TextView tv_url =result.findViewById(R.id.url);
         TextView tv_ingredients =result.findViewById(R.id.ingredients);
@@ -80,7 +86,7 @@ public class DetailsFragment extends Fragment {
                 alertDialogBuilder.setTitle(R.string.alerttitle)
                         .setMessage(msg)
                         .setPositiveButton("Yes",(clickButton, arg) -> {
-                            deleteMessage(rcp);
+                            deleterecipe(rcp);
                             parentActivity.setResult(Activity.RESULT_OK);
                             parentActivity.finish();
                         })
@@ -88,7 +94,7 @@ public class DetailsFragment extends Fragment {
                 alertDialogBuilder.create().show();
 
             }else{
-                insertMessage(rcp);
+                insertrecipe(rcp);
                 Context context = parentActivity.getApplicationContext();
                 Toast toast = Toast.makeText(context, getResources().getString(R.string.toast_message), Toast.LENGTH_LONG );
                 toast.show();
@@ -98,7 +104,11 @@ public class DetailsFragment extends Fragment {
         return result;
     }
 
-    public void deleteMessage(RecipeInfo rcp)
+    /**
+     * delete recipe info from database
+     * @param rcp item to be deleted
+     */
+    public void deleterecipe(RecipeInfo rcp)
     {
         MyOpener dbOpener = new MyOpener(parentActivity);
         SQLiteDatabase db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
@@ -106,7 +116,11 @@ public class DetailsFragment extends Fragment {
         db.close();
     }
 
-    protected void insertMessage(RecipeInfo rcp)
+    /**
+     * insert recipe to database
+     * @param rcp item to insert
+     */
+    protected void insertrecipe(RecipeInfo rcp)
     {
         MyOpener dbOpener = new MyOpener(parentActivity);
         SQLiteDatabase db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
@@ -118,6 +132,12 @@ public class DetailsFragment extends Fragment {
         db.insert(MyOpener.TABLE_NAME, null,newValues);
         db.close();
     }
+
+    /**
+     * Called when a fragment is first attached to its context. onCreate(android.os.Bundle) will be called after this.
+     * If you override this method you must call through to the superclass implementation.
+     * @param context Context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -126,7 +146,9 @@ public class DetailsFragment extends Fragment {
         parentActivity = (AppCompatActivity)context;
     }
 
-
+    /**
+     * display fragment details
+     */
     public DetailsFragment() {
         // Required empty public constructor
     }

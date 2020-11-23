@@ -49,7 +49,11 @@ public class RecipeMainActivity extends AppCompatActivity {
 
     SQLiteDatabase db;
 
-
+    /**
+     *Called as part of the activity lifecycle when the user no longer
+     * actively interacts with the activity, but it is still visible on screen.
+     * The counterpart to onResume()
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -64,6 +68,14 @@ public class RecipeMainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * Called when the activity is starting. This is where most initialization should go:
+     * calling setContentView(int) to inflate the activity's UI,
+     * using findViewById(int) to programmatically interact with widgets in the UI,
+     * calling managedQuery(android.net.Uri, java.lang.String[], java.lang.String,
+     * java.lang.String[], java.lang.String) to retrieve cursors for data being displayed, etc.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,20 +88,6 @@ public class RecipeMainActivity extends AppCompatActivity {
         myAdapter = new MyListAdapter();
         myList.setAdapter(myAdapter);
 
-/*        myList.setOnItemClickListener((parent, view, position, id) -> {
-            Intent goToRecipe = new Intent(MainActivity.this, DetailActivity.class);
-            RecipeInfo selectedRecipe = myAdapter.getItem(position);
-            goToRecipe.putExtra("title", selectedRecipe.title());
-            goToRecipe.putExtra("url", selectedRecipe.url());
-            goToRecipe.putExtra("ingredients", selectedRecipe.ingredients());
-            goToRecipe.putExtra("isFavorite", isFavorite);
-            if(isFavorite){
-                startActivityForResult(goToRecipe,REQUEST_FAVORITE_EDIT);
-            }else {
-                startActivity(goToRecipe);
-            }
-        });
-*/
         myList.setOnItemClickListener((list, item, position, id) -> {
             //Create a bundle to pass data to the new fragment
             Bundle goToRecipe = new Bundle();
@@ -105,7 +103,6 @@ public class RecipeMainActivity extends AppCompatActivity {
             }else {
                 startActivity(nextActivity);
             }
-            //startActivity(nextActivity); //make the transition
 
         });
 
@@ -133,6 +130,15 @@ public class RecipeMainActivity extends AppCompatActivity {
         });
 
         search_vw.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            /**
+             * Called when the user submits the query. This could be due to a key press on the keyboard
+             * or due to pressing a submit button. The listener can override the standard behavior by
+             * returning true to indicate that it has handled the submit request. Otherwise return false
+             * to let the SearchView handle the submission by launching any associated intent.
+             * @param query String: the query text that is to be submitted
+             * @return true if the query has been handled by the listener, false to let the SearchView perform the default action.
+             */
             @Override
             public boolean onQueryTextSubmit(String query) {
                 CharSequence qry=search_vw.getQuery();
@@ -141,6 +147,12 @@ public class RecipeMainActivity extends AppCompatActivity {
                 return false;
             }
 
+            /**
+             * Called when the query text is changed by the user.
+             * @param newText String: the new content of the query text field.
+             * @return false if the SearchView should perform the default action of showing any suggestions if available, true
+             * if the action was handled by the listener.
+             */
             @Override
             public boolean onQueryTextChange(String newText) {
                 CharSequence qry=search_vw.getQuery();
@@ -153,12 +165,25 @@ public class RecipeMainActivity extends AppCompatActivity {
         search_vw.setQuery(savedString,true);
     }
 
+    /**
+     * Initialize the contents of the Activity's standard options menu. You should place your menu items in to menu.
+     * @param menu Menu: The options menu in which you place your items.
+     * @return You must return true for the menu to be displayed; if you return false it will not be shown.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.help, menu);
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected. The default implementation
+     * simply returns false to have the normal processing happen (calling the item's Runnable or sending
+     * a message to its Handler as appropriate). You can use this method for any items for which you would
+     * like to do processing without those other facilities.
+     * @param item MenuItem: The menu item that was selected. This value cannot be null.
+     * @return boolean Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         //Toast.makeText(this, "Help", Toast.LENGTH_SHORT).show();
@@ -176,6 +201,15 @@ public class RecipeMainActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Called when an activity you launched exits, giving you the requestCode you started it with,
+     * the resultCode it returned, and any additional data from it. The resultCode will be RESULT_CANCELED
+     * if the activity explicitly returned that, didn't return any result, or crashed during its operation.
+     * @param requestCode int: The integer request code originally supplied to startActivityForResult(),
+     *                    allowing you to identify who this result came from.
+     * @param resultCode int: The integer result code returned by the child activity through its setResult().
+     * @param data Intent: An Intent, which can return result data to the caller (various data can be attached to Intent "extras").
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
@@ -186,19 +220,39 @@ public class RecipeMainActivity extends AppCompatActivity {
     }
 
     private class MyListAdapter extends BaseAdapter {
+
+        /**
+         * How many items are in the data set represented by this Adapter.
+         * @return 	Count of items.
+         */
     @Override
     public int getCount() {
-        return elements.size() ; //list will have 10 items
+        return elements.size() ;
     }
 
+        /**
+         * Get the data item associated with the specified position in the data set.
+         * @param i int: Position of the item whose data we want within the adapter's data set.
+         * @return 	The data at the specified position.
+         */
     @Override //shows what string is at row i (0-9)
     public RecipeInfo getItem(int i) {
         return elements.get(i);
     }
 
+        /**
+         *
+         * @param i get item id
+         * @return
+         */
     @Override //returns the database id of row i
     public long getItemId(int i) { return 0;} //worry about this next week
 
+        /**
+         * Get the row id associated with the specified position in the list.
+         * @param i int: The position of the item within the adapter's data set whose row id we want.
+         * @return The id of the item at the specified position.
+         */
     @Override //how to show row i
     public View getView(int i, View view, ViewGroup viewGroup) {
         RecipeInfo msg=getItem(i);
@@ -213,18 +267,19 @@ public class RecipeMainActivity extends AppCompatActivity {
 }
     private class RecipeQuery extends AsyncTask< String, Integer, String> {
 
+        /**
+         * Override this method to perform a computation on a background thread.
+         * The specified parameters are the parameters passed to execute(Params...)
+         * by the caller of this task. This will normally run on a background thread.
+         * But to better support testing frameworks, it is recommended that this also
+         * tolerates direct execution on the foreground thread, as part of the
+         * execute(Params...) call. This method can call publishProgress(Progress...)
+         * to publish updates on the UI thread.
+         * @param args Params: The parameters of the task.
+         * @return A result, defined by the subclass of this task.
+         */
         //Type3                      Type1
         public String doInBackground(String... args) {
-            /*try {
-
-                //create a URL object of what server to contact:
-                // updateResult(args[0]);
-
-
-            } catch (Exception e) {
-
-            }
-*/
             try{
                 //create a URL object of what server to contact:
                 URL url = new URL(args[0]);
@@ -271,6 +326,12 @@ public class RecipeMainActivity extends AppCompatActivity {
             return "Done";
         }
 
+        /**
+         * Runs on the UI thread after publishProgress(Progress...) is invoked.
+         * The specified values are the values passed to publishProgress(Progress...).
+         * The default version does nothing.
+         * @param args Progress: The values indicating progress.
+         */
         //Type2
         public void onProgressUpdate(Integer... args) {
             //updating your GUI
@@ -281,6 +342,13 @@ public class RecipeMainActivity extends AppCompatActivity {
 
         }
 
+        /**
+         * Runs on the UI thread after doInBackground(Params...). The specified result
+         * is the value returned by doInBackground(Params...). To better support testing
+         * frameworks, it is recommended that this be written to tolerate direct execution
+         * as part of the execute() call. The default version does nothing.
+         * @param fromDoInBackground Result: The result of the operation computed by doInBackground(Params...).
+         */
         //Type3
         public void onPostExecute(String fromDoInBackground) {
             //means doInBackground is done, and no more progress updates.
@@ -288,56 +356,12 @@ public class RecipeMainActivity extends AppCompatActivity {
             myAdapter.notifyDataSetChanged();
         }
 
-
-        public void updateResult(String urlString) {
-
-            try{
-                //create a URL object of what server to contact:
-                URL url = new URL(urlString);
-
-                //open the connection
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-
-                //wait for date:
-                InputStream response = urlConnection.getInputStream();
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                int progress=0;
-                while ((line = reader.readLine()) != null)
-                {
-                    sb.append(line + "\n");
-                    publishProgress(progress);
-                    progress+=7;
-                    Thread.sleep(1000);
-                }
-
-                String result= sb.toString();
-
-                JSONObject jObject = new JSONObject(result);
-                JSONArray resultArray= jObject.getJSONArray("results");
-            if(resultArray!=null && resultArray.length()>0) {
-                elements.clear();
-                for (int i = 0; i < resultArray.length(); i++) {
-
-                    JSONObject recipe = resultArray.getJSONObject(i);
-                    RecipeInfo newRecipe = new RecipeInfo(recipe.getString("title"),
-                            recipe.getString("href"),
-                            recipe.getString("ingredients"));
-                    elements.add(newRecipe);
-
-                }
-            }
-
-            }catch(Exception ex){
-                int i=0;
-            }
-
-        }
-
     }
 
+    /**
+     * search
+     * @param searchStr search query string
+     */
     private void doSearch(String searchStr){
         isFavorite=false;
         RecipeQuery req = new RecipeQuery(); //creates a background thread
@@ -347,6 +371,9 @@ public class RecipeMainActivity extends AppCompatActivity {
         snackbar.show();
     }
 
+    /**
+     * load data from database
+     */
     private void loadDataFromDatabase()
     {
         elements.clear();
