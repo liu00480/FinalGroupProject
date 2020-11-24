@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    //TODO download icon and replace icon id
+    <item android:id="@+id/ticketmaster"
+        android:title="@string/ticketmaster"
+        android:icon="@drawable/recipe"
+        android:orderInCategory="50"
+        app:showAsAction="always"/>  <!-- This uses showAsAction=always, so look at icon= parameter -->
+
+
+    <item android:id="@+id/recipesearchpage"
+        android:orderInCategory="100"
+        android:icon="@drawable/recipe"
+        app:showAsAction="always"
+        android:title="@string/recipesearchpage"/>    <!-- This uses showAsAction=always, so look at icon= parameter -->
+
+    //TODO download icon and replace icon id
+    <item android:id="@+id/covid19"
+        android:title="@string/covid19"
+        android:icon="@drawable/recipe"
+        app:showAsAction="always"
+        android:orderInCategory="200"/> <!-- This uses showAsAction=never, so look at title= parameter -->
+
+    //TODO download icon and replace icon id
+    <item android:id="@+id/audiodb"
+        android:icon="@drawable/recipe"
+        android:orderInCategory="300"
+        app:showAsAction="always"
+        android:title="@string/audiodb"/>
+</menu>
