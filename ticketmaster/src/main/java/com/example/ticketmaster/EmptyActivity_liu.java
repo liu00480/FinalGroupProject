@@ -1,6 +1,7 @@
-package com.example.finalgroupproject;
+package com.example.ticketmaster;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class EmptyActivity_liu extends AppCompatActivity {

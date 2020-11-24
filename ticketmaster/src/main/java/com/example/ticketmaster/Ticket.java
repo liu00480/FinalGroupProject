@@ -1,4 +1,4 @@
-package com.example.finalgroupproject;
+package com.example.ticketmaster;
 
 public class Ticket {
 
