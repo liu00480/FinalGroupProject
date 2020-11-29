@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -85,17 +86,16 @@ public class MainActivity_liu extends AppCompatActivity {
 
         Button search_bt = findViewById(R.id.searchButton);
 
-
-
-
-
-
-
         Button searchButton = findViewById(R.id.searchButton);
 
         searchButton.setOnClickListener(bt ->
         {   /*goToProfile.putExtra("email", emailEditText.getText().toString());*/
-            startActivity(goToSearch);
+//            startActivity(goToSearch);
+            String cityToSearch = editViewCity.getText().toString();
+            String radiusToSearch = editViewRadius.getText().toString();
+            TicketQuery query = new TicketQuery(cityToSearch,radiusToSearch);
+            query.execute();
+
         });// ke neng yao gai
 
         Button favouriteButton = findViewById(R.id.favouriteButton);
@@ -116,55 +116,46 @@ public class MainActivity_liu extends AppCompatActivity {
         private String maxPrice;
         private String url;
         private Bitmap bitmap;
+        private static final String TICKET_MASTER_URL =
+                "https://app.ticketmaster.com/discovery/v2/events.json?apikey=rzBTum5fKPpuObmhHA6gkkZuRTYFnR0G";
+        private String city;
+        private String radius;
 
+        public TicketQuery(String city, String radius){
+            this.city = city;
+            this.radius = radius;
+        }
         //Type3                     Type1
         protected String doInBackground(String ... args) {
+            String fullUrl = TICKET_MASTER_URL+"&city="+this.city+"&radius="+this.radius;
             try {
+                elements.clear();
                 //create a URL object of what server to contact:
-                URL url = new URL(args[0]);
+                URL url = new URL(fullUrl);
                 //open the connection
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 //wait for data:
                 InputStream response = urlConnection.getInputStream();
-                //From part 3: slide 19
-                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                factory.setNamespaceAware(false);
-                XmlPullParser xpp = factory.newPullParser();
-                xpp.setInput( response  , "UTF-8"); //response is data from the server
-                //From part 3, slide 20
-                String parameter = null;
-                int eventType = xpp.getEventType(); //The parser is currently at START_DOCUMENT
-                while(eventType != XmlPullParser.END_DOCUMENT) {
-                    if(eventType == XmlPullParser.START_TAG) {
-                        //If you get here, then you are pointing at a start tag
-                        if(xpp.getName().equals("events")) {
-                            //If you get here, then you are pointing to a <Weather> start tag
-                            String eventName = xpp.getAttributeValue(null, "name");
-                            String url_text = xpp.getAttributeValue(null, "url");
-                            if(xpp.getName().equals("images")) {
-                                if(xpp.getAttributeValue(null, "ratio").equals("4_3")) {
-                                    String imageUrl = xpp.getAttributeValue(null, "url");
-                                    if (fileExistance(imageUrl)) {
-                                        Log.i("Image", "Image exists so read from file.");
-                                        bitmap = readFile(imageUrl);
-                                    }else {
-                                        Log.i("Image", "Image doesn't exists so download from internet.");
-                                        bitmap = downLoadImage(imageUrl);
-                                    }
-                                }
-                            }
-                            else if(xpp.getName().equals("dates")) {
-                                if(xpp.getName().equals("start")) {
-                                    String startDate = xpp.getAttributeValue(null, "localDate");
-                                }
-                            }
-                            else if(xpp.getName().equals("priceRanges")) {
-                                String min = xpp.getAttributeValue(null, "min");
-                                String max = xpp.getAttributeValue(null, "max");
-                            }
-                        }
-                    }
-                    eventType = xpp.next(); //move to the next xml event and store it in a variable
+                InputStreamReader inputStreamReader = new InputStreamReader(response);
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+                StringBuilder resultStr = new StringBuilder();
+                String line = null;
+                while((line=reader.readLine())!=null){
+                    resultStr.append(line);
+                }
+                String resultJSONStr = resultStr.toString();
+                JSONObject obj = new JSONObject(resultJSONStr);
+                JSONArray events = obj.getJSONArray("events");
+                for(int i=0;i<events.length();i++){
+                    JSONObject event = events.getJSONObject(i);
+                    String name = event.getString("name");
+                    String eventUrl = event.getString("url");
+                    String startDate = event.getJSONObject("dates").getJSONObject("start").getString("localDate");
+                    double minPrice = event.getJSONArray("priceRanges").getJSONObject(0).getDouble("min");
+                    double maxPrice = event.getJSONArray("priceRanges").getJSONObject(0).getDouble("max");
+                    String bitmap = event.getJSONArray("images").getJSONObject(0).getString("url");
+                    Ticket ticket = new Ticket(name, startDate, minPrice+"", maxPrice+"", eventUrl, bitmap);
+                    elements.add(ticket);
                 }
             }
             catch (Exception e) { }
@@ -178,15 +169,7 @@ public class MainActivity_liu extends AppCompatActivity {
 
         //Type3
         public void onPostExecute(String fromDoInBackground) {
-            //Log.i("HTTP", fromDoInBackground);
-            minTemperature.setText(min);
-            maxTemperature.setText(max);
-            currentTemperature.setText(current_Temperature);
-            //image
-            currentWeather.setImageBitmap(bitmap);
-            //uv
-            uvRating.setText(uv);
-            progressBar.setVisibility(View.INVISIBLE);
+            myAdapter.notifyDataSetChanged();
         }
 
         public Bitmap downLoadImage(String iconName) {
@@ -264,7 +247,7 @@ public class MainActivity_liu extends AppCompatActivity {
         public Ticket getItem(int position) { return elements.get(position); }
 
         @Override
-        public long getItemId(int position) { return 0;}//gai
+        public long getItemId(int position) { return elements.get(position).getId();}//gai
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
