@@ -64,27 +64,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //TODO: replace this package name with your ticketmaster project full name. then uncomments
                 // the following line.
 
-                Intent gotoAct=getPackageManager().getLaunchIntentForPackage("com.example.ticketmaster");
+                // Intent gotoAct=getPackageManager().getLaunchIntentForPackage("com.example.recipesearchpage");
+                // startActivity(gotoAct);
+                break;
+            case R.id.recipesearchpage:
+                Intent gotoAct=getPackageManager().getLaunchIntentForPackage("com.example.recipesearchpage");
                 startActivity(gotoAct);
                 break;
-//            case R.id.recipesearchpage:
-//                Intent gotoAct=getPackageManager().getLaunchIntentForPackage("com.example.recipesearchpage");
-//                startActivity(gotoAct);
-//                break;
-//            case R.id.covid19:
-//                //TODO: replace this package name with your ticketmaster project full name. then uncomments
-//                // the following line.
-//
-//                // Intent gotoAct=getPackageManager().getLaunchIntentForPackage("com.example.recipesearchpage");
-//                // startActivity(gotoAct);
-//                break;
-//            case R.id.audiodb:
-//                //TODO: replace this package name with your ticketmaster project full name. then uncomments
-//                // the following line.
-//
-//                // Intent gotoAct=getPackageManager().getLaunchIntentForPackage("com.example.recipesearchpage");
-//                // startActivity(gotoAct);
-//                break;
+            case R.id.covid19:
+                //TODO: replace this package name with your ticketmaster project full name. then uncomments
+                // the following line.
+
+                // Intent gotoAct=getPackageManager().getLaunchIntentForPackage("com.example.recipesearchpage");
+                // startActivity(gotoAct);
+                break;
+            case R.id.audiodb:
+                //TODO: replace this package name with your ticketmaster project full name. then uncomments
+                // the following line.
+
+                // Intent gotoAct=getPackageManager().getLaunchIntentForPackage("com.example.recipesearchpage");
+                // startActivity(gotoAct);
+                break;
         }
     }
 }
