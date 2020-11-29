@@ -33,7 +33,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            app:theme="@style/TextAppearance"
             app:menu="@menu/mainmenu"
             android:id="@+id/nav_view"
             tools:ignore="MissingClass" />

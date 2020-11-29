@@ -23,8 +23,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,7 +35,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity_liu extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences prefs;
     ProgressBar pb_main;
@@ -68,7 +66,7 @@ public class MainActivity_liu extends AppCompatActivity {
             goToTicket.putString("url", myAdapter.getItem(position).getUrl());
             goToTicket.putBoolean("isFavorite", isFavorite);
 
-            Intent nextActivity = new Intent(MainActivity_liu.this, EmptyActivity_liu.class);
+            Intent nextActivity = new Intent(MainActivity.this, EmptyActivity_liu.class);
             nextActivity.putExtras(goToTicket);
             if(isFavorite){ startActivityForResult(nextActivity, REQUEST_FAVORITE_EDIT);
             }else { startActivity(nextActivity); }
@@ -99,7 +97,7 @@ public class MainActivity_liu extends AppCompatActivity {
         });// ke neng yao gai
 
         Button favouriteButton = findViewById(R.id.favouriteButton);
-        Intent goToFavourite = new Intent(MainActivity_liu.this, FavouriteResult_liu.class);
+        Intent goToFavourite = new Intent(MainActivity.this, FavouriteResult_liu.class);
         searchButton.setOnClickListener(bt ->
         {   /*goToProfile.putExtra("email", emailEditText.getText().toString());*/
             startActivity(goToFavourite);
