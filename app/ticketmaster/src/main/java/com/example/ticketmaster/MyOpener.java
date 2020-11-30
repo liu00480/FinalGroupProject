@@ -11,8 +11,10 @@ public class MyOpener extends SQLiteOpenHelper {
     public final static String TABLE_NAME = "TICKET_INFO";
     public final static String COL_EVENT_NAME = "EVENT_NAME";
     public final static String COL_START_DATE = "START_DATE";
-    public final static String COL_PRICE_RANGE = "PRICE_RANGE";
+    public final static String COL_PRICE_MAX = "PRICE_MAX";
+    public final static String COL_PRICE_MIN = "PRICE_MIN";
     public final static String COL_URL = "URL";
+    public final static String COL_IMG_URL = "IMG_URL";
 
     public MyOpener(Context ctx)
     {
@@ -27,8 +29,10 @@ public class MyOpener extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " ( "
                 + COL_EVENT_NAME + " text PRIMARY KEY,"
                 + COL_START_DATE + " text,"
-                + COL_PRICE_RANGE + " text,"
-                + COL_URL + " text);");  // add or remove columns
+                + COL_PRICE_MAX + " text,"
+                + COL_PRICE_MIN + " text,"
+                + COL_URL + " text,"
+                + COL_IMG_URL + " text);");  // add or remove columns
     }
 
     //this function gets called if the database version on your device is lower than VERSION_NUM

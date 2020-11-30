@@ -3,12 +3,12 @@ package com.example.ticketmaster;
 public class Ticket {
 
     long id;
-    String eventName = "";
-    String startDate = "";
-    String minPrice = "";
-    String maxPrice = "";
-    String url = "";
-    String imgUrl="";
+    String eventName;
+    String startDate;
+    String minPrice ;
+    String maxPrice;
+    String url;
+    String imgUrl;
 
     public Ticket(String eventName, String startDate, String minPrice, String maxPrice, String url, String imgUrl) {
         this.eventName = eventName;
@@ -25,12 +25,19 @@ public class Ticket {
     public String getMaxPrice() {return maxPrice;}
     public String getUrl() {return url;}
     public String getImgUrl() {return imgUrl;}
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", eventName='" + eventName + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", minPrice='" + minPrice + '\'' +
+                ", maxPrice='" + maxPrice + '\'' +
+                ", url='" + url + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                '}';
     }
 }

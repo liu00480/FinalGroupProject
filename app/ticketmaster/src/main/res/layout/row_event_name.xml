@@ -10,7 +10,7 @@
         android:layout_alignWithParentIfMissing="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:gravity="end"
+        android:gravity="start"
         android:textSize="16sp" />
 
 </RelativeLayout>

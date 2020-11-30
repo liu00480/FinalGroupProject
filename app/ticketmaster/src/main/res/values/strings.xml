@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Ticketmaster</string>
+    <string name="displayFavorite">My favourite results</string>
+    <string name="help">HELP</string>
+    <string name="helpInstruction">Input the city and radius into the search box, click search button. Click my favorite button to display the list of event you save. Click on any of the list item will display the details of
+    the selected event.</string>
+    <string name="helpTitle">HELP</string>
+    <string name="displaySearch">Displaying search result</string>
 </resources>

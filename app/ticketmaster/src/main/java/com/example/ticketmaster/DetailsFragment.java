@@ -1,16 +1,23 @@
 package com.example.ticketmaster;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import java.io.FileOutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class DetailsFragment extends Fragment {
 
@@ -31,12 +38,46 @@ public class DetailsFragment extends Fragment {
         View result =  inflater.inflate(R.layout.fragment_details, container, false);
 
         //show the message
-        //TextView message = (TextView)result.findViewById(R.id.hello_blank_fragment);
-        TextView tv_eventName = (TextView)result.findViewById(R.id.eventName);
-        TextView tv_minPrice = (TextView)result.findViewById(R.id.minPrice);
-        TextView tv_maxPrice = (TextView)result.findViewById(R.id.maxPrice);
-        TextView tv_url = (TextView)result.findViewById(R.id.url);
-        TextView tv_startDate = (TextView)result.findViewById(R.id.startDate);
+        TextView tv_eventName = result.findViewById(R.id.eventName);
+        TextView tv_minPrice = result.findViewById(R.id.minPrice);
+        TextView tv_maxPrice = result.findViewById(R.id.maxPrice);
+        TextView tv_url = result.findViewById(R.id.url);
+        TextView tv_startDate = result.findViewById(R.id.startDate);
+        ImageView iv_imgUrl = result.findViewById(R.id.eventImage);
+
+        Ticket ticket = new Ticket(dataFromActivity.getString("eventName"),
+                dataFromActivity.getString("startDate"),
+                dataFromActivity.getString("minPrice"),
+                dataFromActivity.getString("maxPrice"),
+                dataFromActivity.getString("url"),
+                dataFromActivity.getString("imgUrl"));
+
+        tv_eventName.setText(ticket.getEventName());
+        tv_minPrice.setText(ticket.getMinPrice());
+        tv_maxPrice.setText(ticket.getMaxPrice());
+        tv_startDate.setText(ticket.getStartDate());
+        tv_url.setText(ticket.getUrl());
+        //iv_imgUrl.setImageBitmap(ticket.getImgUrl());
+
+//        String imgUrl;
+//        public Bitmap downLoadImage(String imgUrl) {
+//            Bitmap image = null;
+//            try{
+//                URL url = new URL(ticket.getImgUrl());
+//                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//                connection.connect();
+//                int responseCode = connection.getResponseCode();
+//                if (responseCode == 200) {
+//                    image = BitmapFactory.decodeStream(connection.getInputStream());
+//                }
+//                FileOutputStream outputStream = openFileOutput( iconName + ".png", Context.MODE_PRIVATE);
+//                image.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
+//                outputStream.flush();
+//                outputStream.close();
+//            }
+//            catch (Exception e) { }
+//            return image;
+//        }
 
 //        Ticket ticket = new Ticket(dataFromActivity.getString())
 //        //message.setText(dataFromActivity.getString(ChatRoomActivity.ITEM_SELECTED));
