@@ -16,7 +16,7 @@
         android:id="@+id/eventNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Event Name: "
+        android:text="@string/event_name"
         android:layout_below="@+id/eventImage"
         android:layout_alignParentStart="true"/>
     <TextView
@@ -32,7 +32,7 @@
         android:layout_below="@+id/eventNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Min Price: "/>
+        android:text="@string/min_price"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         android:layout_below="@+id/minPriceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Max Price: "/>
+        android:text="@string/max_price"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
         android:id="@+id/startDateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Date: "
+        android:text="@string/start_date"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/maxPriceView"/>
     <TextView
@@ -74,7 +74,7 @@
         android:layout_below="@+id/startDateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="url: "/>
+        android:text="@string/url"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,6 +96,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Save"/>
+        android:text="@string/save"/>
 
 </RelativeLayout>

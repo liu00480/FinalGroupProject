@@ -19,6 +19,16 @@ public class Ticket {
         this.imgUrl = imgUrl;
     }
 
+    public Ticket(Long id, String eventName, String startDate, String minPrice, String maxPrice, String url, String imgUrl) {
+        this.id = id;
+        this.eventName = eventName;
+        this.startDate = startDate;
+        this.minPrice = minPrice;
+        this.maxPrice = maxPrice;
+        this.url = url;
+        this.imgUrl = imgUrl;
+    }
+
     public String getEventName() {return eventName;}
     public String getStartDate() {return startDate;}
     public String getMinPrice() {return minPrice;}
@@ -26,7 +36,6 @@ public class Ticket {
     public String getUrl() {return url;}
     public String getImgUrl() {return imgUrl;}
     public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
 
     @Override
     public String toString() {

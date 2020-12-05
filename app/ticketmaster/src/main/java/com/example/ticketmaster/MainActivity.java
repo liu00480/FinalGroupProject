@@ -2,7 +2,6 @@ package com.example.ticketmaster;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.database.Cursor;
 import android.os.Bundle;
 import android.content.Context;
@@ -12,7 +11,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,11 +24,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.snackbar.Snackbar;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -48,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences prefs;
     ProgressBar pb_main;
-    public boolean isFavorite = false;
+    public boolean isFavourite = false;
     static final int REQUEST_FAVORITE_EDIT = 1;
     MyListAdapter myAdapter = new MyListAdapter();
     private ArrayList<Ticket> elements = new ArrayList<>();
@@ -75,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
             goToTicket.putString("maxPrice", myAdapter.getItem(position).getMaxPrice());
             goToTicket.putString("url", myAdapter.getItem(position).getUrl());
             goToTicket.putString("imgUrl", myAdapter.getItem(position).getImgUrl());
-            goToTicket.putBoolean("isFavorite", isFavorite);
+            goToTicket.putBoolean("isFavourite", isFavourite);
 
             Intent nextActivity = new Intent(MainActivity.this, EmptyActivity.class);
             nextActivity.putExtras(goToTicket);
-            if(isFavorite){ startActivityForResult(nextActivity, REQUEST_FAVORITE_EDIT);
+            if(isFavourite){ startActivityForResult(nextActivity, REQUEST_FAVORITE_EDIT);
             }else { startActivity(nextActivity); }
         });
 
@@ -110,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         {   /*goToProfile.putExtra("email", emailEditText.getText().toString());*/
             loadDataFromDatabase();
             myAdapter.notifyDataSetChanged();
-            isFavorite = true;
+            isFavourite = true;
             String msg = getResources().getString(R.string.displayFavorite);
             Snackbar snackbar = Snackbar.make(findViewById(R.id.main), msg, Snackbar.LENGTH_LONG);
             snackbar.show();
@@ -150,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void doSearch(String city, String radius) {
-        isFavorite = false;
+        isFavourite = false;
         TicketQuery query = new TicketQuery(city, radius); //creates a background thread
         query.execute("https://app.ticketmaster.com/discovery/v2/events.json?apikey=rzBTum5fKPpuObmhHA6gkkZuRTYFnR0G " + "&city=" + city + "&radius=" + radius); //Type 1
         String msg = getResources().getString(R.string.displaySearch);
@@ -163,11 +157,12 @@ public class MainActivity extends AppCompatActivity {
         MyOpener dbOpener = new MyOpener(this);
         db = dbOpener.getWritableDatabase();
 
-        String [] columns = {MyOpener.COL_EVENT_NAME, MyOpener.COL_START_DATE, MyOpener.COL_PRICE_MAX, MyOpener.COL_PRICE_MIN, MyOpener.COL_URL, MyOpener.COL_IMG_URL};
+        String [] columns = {MyOpener.COL_ID, MyOpener.COL_EVENT_NAME, MyOpener.COL_START_DATE, MyOpener.COL_PRICE_MAX, MyOpener.COL_PRICE_MIN, MyOpener.COL_URL, MyOpener.COL_IMG_URL};
         Cursor results = db.query(false, MyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
 
         //Now the results object has rows of results that match the query.
         //find the column indices:
+        int idColIndex = results.getColumnIndex(MyOpener.COL_ID);
         int eventNameColumnIndex = results.getColumnIndex(MyOpener.COL_EVENT_NAME);
         int startDateColumnIndex = results.getColumnIndex(MyOpener.COL_START_DATE);
         int priceMaxColumnIndex = results.getColumnIndex(MyOpener.COL_PRICE_MAX);
@@ -178,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
         //iterate over the results, return true if there is a next item:
         while(results.moveToNext())
         {
+            Long id = results.getLong(idColIndex);
             String eventName = results.getString(eventNameColumnIndex);
             String startDate = results.getString(startDateColumnIndex) ;
             String max = results.getString(priceMaxColumnIndex);
@@ -185,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             String url = results.getString(urlColumnIndex);
             String imgUrl = results.getString(imgUrlColumnIndex);
             //add the new Contact to the array list:
-            elements.add(new Ticket(eventName, startDate, min, max, url, imgUrl ));
+            elements.add(new Ticket(id, eventName, startDate, min, max, url, imgUrl));
         }
     }
 
@@ -195,8 +191,9 @@ public class MainActivity extends AppCompatActivity {
         private String startDate;
         private String minPrice;
         private String maxPrice;
-        private String url;
-        private Bitmap bitmap;
+        private String eventUrl;
+        private String imgUrl;
+        //private Bitmap bitmap;
         private static final String TICKET_MASTER_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=rzBTum5fKPpuObmhHA6gkkZuRTYFnR0G ";
         private String city;
         private String radius;
@@ -231,13 +228,15 @@ public class MainActivity extends AppCompatActivity {
                 JSONArray events = embedded.getJSONArray("events");
                 for(int i=0;i<events.length();i++){
                     JSONObject event = events.getJSONObject(i);
-                    String name = event.getString("name");
-                    String eventUrl = event.getString("url");
-                    String startDate = event.getJSONObject("dates").getJSONObject("start").getString("localDate");
-                    double minPrice = event.getJSONArray("priceRanges").getJSONObject(0).getDouble("min");
-                    double maxPrice = event.getJSONArray("priceRanges").getJSONObject(0).getDouble("max");
-                    String bitmap = event.getJSONArray("images").getJSONObject(0).getString("url");
-                    Ticket ticket = new Ticket(name, startDate, minPrice+"", maxPrice+"", eventUrl, bitmap);
+                    eventName = event.getString("name");
+                    eventUrl = event.getString("url");
+                    startDate = event.getJSONObject("dates").getJSONObject("start").getString("localDate");
+                    double minPriceDouble = event.getJSONArray("priceRanges").getJSONObject(0).getDouble("min");
+                    minPrice = minPriceDouble + "";
+                    double maxPriceDouble = event.getJSONArray("priceRanges").getJSONObject(0).getDouble("max");
+                    maxPrice = maxPriceDouble + "";
+                    imgUrl = event.getJSONArray("images").getJSONObject(0).getString("url");
+                    Ticket ticket = new Ticket(eventName, startDate, minPrice+"", maxPrice+"", eventUrl, imgUrl);
                     elements.add(ticket);
                 }
             }
@@ -265,62 +264,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("e"+i, t.toString());
             }
             myAdapter.notifyDataSetChanged();
-        }
-
-        public Bitmap downLoadImage(String iconName) {
-            Bitmap image = null;
-            try{
-                URL url = new URL("http://openweathermap.org/img/w/" + iconName);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-                int responseCode = connection.getResponseCode();
-                if (responseCode == 200) {
-                    image = BitmapFactory.decodeStream(connection.getInputStream());
-                }
-                FileOutputStream outputStream = openFileOutput( iconName + ".png", Context.MODE_PRIVATE);
-                image.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
-                outputStream.flush();
-                outputStream.close();
-            }
-            catch (Exception e) { }
-            return image;
-        }
-
-        public boolean fileExistance(String fname){
-            File file = getBaseContext().getFileStreamPath(fname);
-            return file.exists();
-        }
-
-        public Bitmap readFile(String fname) {
-            FileInputStream fis = null;
-            try {fis = openFileInput(fname);}
-            catch (FileNotFoundException e) {e.printStackTrace();}
-            Bitmap bm = BitmapFactory.decodeStream(fis);
-            return bm;
-        }
-
-        public String getUv(String urlString) {
-            String value = null;
-            try{
-                //create a URL object of what server to contact:
-                URL url = new URL(urlString);
-                //open the connection
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                //wait for date:
-                InputStream response = urlConnection.getInputStream();
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while ((line = reader.readLine()) != null)
-                {
-                    sb.append(line + "\n");
-                }
-                String result= sb.toString();
-                JSONObject jObject = new JSONObject(result);
-                value=Double.toString(jObject.getDouble("value"));
-            }catch(Exception ex){}
-            return value;
         }
     }
 

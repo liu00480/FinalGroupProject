@@ -92,7 +92,7 @@
         android:visibility="invisible" />
 
     <Button
-        android:id="@+id/fragmentButton"
+        android:id="@+id/resultPageButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

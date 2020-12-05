@@ -15,6 +15,7 @@ public class MyOpener extends SQLiteOpenHelper {
     public final static String COL_PRICE_MIN = "PRICE_MIN";
     public final static String COL_URL = "URL";
     public final static String COL_IMG_URL = "IMG_URL";
+    public final static String COL_ID = "_id";
 
     public MyOpener(Context ctx)
     {
@@ -26,16 +27,16 @@ public class MyOpener extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " ( "
-                + COL_EVENT_NAME + " text PRIMARY KEY,"
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_EVENT_NAME + " text,"
                 + COL_START_DATE + " text,"
                 + COL_PRICE_MAX + " text,"
                 + COL_PRICE_MIN + " text,"
                 + COL_URL + " text,"
-                + COL_IMG_URL + " text);");  // add or remove columns
+                + COL_IMG_URL + " text);"
+                );
     }
 
-    //this function gets called if the database version on your device is lower than VERSION_NUM
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {   //Drop the old table:

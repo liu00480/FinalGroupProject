@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="displayFavorite">My favourite results</string>
-    <string name="helpInstruction" />
-    <string name="helpTitle">HELP</string>
+    <string name="app_name">放心吃喝</string>
+    <string name="displayFavorite">我最喜爱</string>
+    <string name="help">帮助</string>
+    <string name="helpInstruction">在搜索框中输入城市和范围。点我最喜爱按键显示你保存的事件。点以下搜索结果显示更加具体的事件。</string>
+    <string name="helpTitle">帮助</string>
+    <string name="displaySearch">正在显示搜索结果</string>
+    <string name="delete">删除</string>
+    <string name="save">保存</string>
+    <string name="deleteFavorite">你正在从我最喜爱列表中删除此项事件，是都确定？</string>
+    <string name="alerttitle">删除喜爱事件</string>
+    <string name="saved_message">已保存至我最喜爱</string>
+    <string name="url">网址：</string>
+    <string name="start_date">起始日期：</string>
+    <string name="max_price">最高票价：</string>
+    <string name="min_price">最低票价：</string>
+    <string name="event_name">事件名称：</string>
+    <string name="enter_city_name">输入城市名称：</string>
+    <string name="enter_radius">输入范围：</string>
+    <string name="search">搜索</string>
+    <string name="my_favourite">我最喜爱</string>
 </resources>
