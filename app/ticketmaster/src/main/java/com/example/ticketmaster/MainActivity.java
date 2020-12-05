@@ -157,12 +157,12 @@ public class MainActivity extends AppCompatActivity {
         MyOpener dbOpener = new MyOpener(this);
         db = dbOpener.getWritableDatabase();
 
-        String [] columns = {MyOpener.COL_ID, MyOpener.COL_EVENT_NAME, MyOpener.COL_START_DATE, MyOpener.COL_PRICE_MAX, MyOpener.COL_PRICE_MIN, MyOpener.COL_URL, MyOpener.COL_IMG_URL};
+        String [] columns = {MyOpener.COL_EVENT_NAME, MyOpener.COL_START_DATE, MyOpener.COL_PRICE_MAX, MyOpener.COL_PRICE_MIN, MyOpener.COL_URL, MyOpener.COL_IMG_URL};
         Cursor results = db.query(false, MyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
 
         //Now the results object has rows of results that match the query.
         //find the column indices:
-        int idColIndex = results.getColumnIndex(MyOpener.COL_ID);
+        //int idColIndex = results.getColumnIndex(MyOpener.COL_ID);
         int eventNameColumnIndex = results.getColumnIndex(MyOpener.COL_EVENT_NAME);
         int startDateColumnIndex = results.getColumnIndex(MyOpener.COL_START_DATE);
         int priceMaxColumnIndex = results.getColumnIndex(MyOpener.COL_PRICE_MAX);
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         //iterate over the results, return true if there is a next item:
         while(results.moveToNext())
         {
-            Long id = results.getLong(idColIndex);
+            //Long id = results.getLong(idColIndex);
             String eventName = results.getString(eventNameColumnIndex);
             String startDate = results.getString(startDateColumnIndex) ;
             String max = results.getString(priceMaxColumnIndex);
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             String url = results.getString(urlColumnIndex);
             String imgUrl = results.getString(imgUrlColumnIndex);
             //add the new Contact to the array list:
-            elements.add(new Ticket(id, eventName, startDate, min, max, url, imgUrl));
+            elements.add(new Ticket(eventName, startDate, min, max, url, imgUrl));
         }
     }
 

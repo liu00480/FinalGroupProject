@@ -27,9 +27,9 @@ public class MyOpener extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COL_EVENT_NAME + " text,"
-                + COL_START_DATE + " text,"
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " ( "
+                + COL_EVENT_NAME + " text PRIMARY KEY,"
+                + COL_START_DATE + "text,"
                 + COL_PRICE_MAX + " text,"
                 + COL_PRICE_MIN + " text,"
                 + COL_URL + " text,"

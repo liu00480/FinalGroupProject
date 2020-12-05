@@ -127,7 +127,7 @@ public class DetailsFragment extends Fragment {
     {
         MyOpener dbOpener = new MyOpener(parentActivity);
         SQLiteDatabase db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
-        db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + "= ?", new String[] {Long.toString(ticket.getId())});
+        db.delete(MyOpener.TABLE_NAME, MyOpener.COL_EVENT_NAME + "= ?", new String[] {ticket.getEventName()});
         db.close();
     }
 
