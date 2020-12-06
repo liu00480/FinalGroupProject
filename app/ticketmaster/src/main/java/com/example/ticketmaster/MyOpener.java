@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MyOpener extends SQLiteOpenHelper {
 
     protected final static String DATABASE_NAME = "TicketDB";
-    protected final static int VERSION_NUM = 1;
+    protected final static int VERSION_NUM = 4;
     public final static String TABLE_NAME = "TICKET_INFO";
     public final static String COL_EVENT_NAME = "EVENT_NAME";
     public final static String COL_START_DATE = "START_DATE";
@@ -15,7 +15,7 @@ public class MyOpener extends SQLiteOpenHelper {
     public final static String COL_PRICE_MIN = "PRICE_MIN";
     public final static String COL_URL = "URL";
     public final static String COL_IMG_URL = "IMG_URL";
-    public final static String COL_ID = "_id";
+    public final static String COL_ID = "id";
 
     public MyOpener(Context ctx)
     {
@@ -28,13 +28,14 @@ public class MyOpener extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " ( "
-                + COL_EVENT_NAME + " text PRIMARY KEY,"
-                + COL_START_DATE + "text,"
-                + COL_PRICE_MAX + " text,"
-                + COL_PRICE_MIN + " text,"
-                + COL_URL + " text,"
-                + COL_IMG_URL + " text);"
-                );
+                        + COL_ID+ " INTEGER PRIMARY KEY,"
+                        + COL_EVENT_NAME + " text,"
+                        + COL_START_DATE + " text,"
+                        + COL_PRICE_MAX + " text,"
+                        + COL_PRICE_MIN + " text,"
+                        + COL_URL + " text,"
+                        + COL_IMG_URL + " text);"
+                        );
     }
 
     @Override

@@ -44,7 +44,8 @@ public class DetailsFragment extends Fragment {
         TextView tv_startDate = result.findViewById(R.id.startDate);
         iv_imgUrl = result.findViewById(R.id.eventImage);
 
-        Ticket ticket = new Ticket(dataFromActivity.getString("eventName"),
+        Ticket ticket = new Ticket(dataFromActivity.getLong("id"),
+                dataFromActivity.getString("eventName"),
                 dataFromActivity.getString("startDate"),
                 dataFromActivity.getString("minPrice"),
                 dataFromActivity.getString("maxPrice"),
@@ -82,9 +83,9 @@ public class DetailsFragment extends Fragment {
                         .setNegativeButton("No", (clickButton, arg) -> {parentActivity.setResult(RESULT_CANCELED);  });
                 alertDialogBuilder.create().show();
             }else {
-                InsertTicket(ticket);
+                long rowId = InsertTicket(ticket);
                 Context context = parentActivity.getApplicationContext();
-                Toast toast = Toast.makeText(context, getResources().getString(R.string.saved_message), Toast.LENGTH_LONG );
+                Toast toast = Toast.makeText(context, getResources().getString(R.string.saved_message)+" rowid = "+rowId, Toast.LENGTH_LONG );
                 toast.show();
             }
             //parentActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
@@ -127,11 +128,11 @@ public class DetailsFragment extends Fragment {
     {
         MyOpener dbOpener = new MyOpener(parentActivity);
         SQLiteDatabase db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
-        db.delete(MyOpener.TABLE_NAME, MyOpener.COL_EVENT_NAME + "= ?", new String[] {ticket.getEventName()});
+        db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + "= ?", new String[] {ticket.getId()+""});
         db.close();
     }
 
-    protected void InsertTicket(Ticket ticket)
+    protected long InsertTicket(Ticket ticket)
     {
         MyOpener dbOpener = new MyOpener(parentActivity);
         SQLiteDatabase db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
@@ -143,8 +144,9 @@ public class DetailsFragment extends Fragment {
         newValues.put(MyOpener.COL_PRICE_MIN, ticket.getMinPrice());
         newValues.put(MyOpener.COL_URL, ticket.getUrl());
         newValues.put(MyOpener.COL_IMG_URL, ticket.getImgUrl());
-        db.insert(MyOpener.TABLE_NAME, null,newValues);
+        long rowId = db.insert(MyOpener.TABLE_NAME, null,newValues);
         db.close();
+        return rowId;
     }
 
     @Override
