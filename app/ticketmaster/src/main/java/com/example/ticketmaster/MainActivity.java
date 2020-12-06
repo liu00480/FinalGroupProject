@@ -32,6 +32,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Junfeng Liu
+ * 040725425
+ *
+ *
+ */
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences prefs;

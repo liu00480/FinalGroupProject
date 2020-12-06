@@ -5,7 +5,7 @@
     //TODO download icon and replace icon id
     <item android:id="@+id/ticketmaster"
         android:title="@string/ticketmaster"
-        android:icon="@drawable/recipe"
+        android:icon="@drawable/ticket"
         android:orderInCategory="50"
         app:showAsAction="always"/>  <!-- This uses showAsAction=always, so look at icon= parameter -->
 
