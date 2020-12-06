@@ -22,8 +22,6 @@ public class MyOpener extends SQLiteOpenHelper {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
     }
 
-    //This function gets called if no database file exists.
-    //Look on your device in the /data/data/package-name/database directory.
     @Override
     public void onCreate(SQLiteDatabase db)
     {
@@ -40,20 +38,15 @@ public class MyOpener extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {   //Drop the old table:
+    {
         db.execSQL( "DROP TABLE IF EXISTS " + TABLE_NAME);
-
-        //Create the new table:
         onCreate(db);
     }
 
-    //this function gets called if the database version on your device is higher than VERSION_NUM
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {   //Drop the old table:
+    {
         db.execSQL( "DROP TABLE IF EXISTS " + TABLE_NAME);
-
-        //Create the new table:
         onCreate(db);
     }
 }

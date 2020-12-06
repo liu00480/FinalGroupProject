@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,10 +26,6 @@ import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -59,9 +53,7 @@ public class MainActivity extends AppCompatActivity {
         myList.setAdapter(myAdapter);
 
         myList.setOnItemClickListener((parent, view, position, id) -> {
-            //Intent goToSearch = new Intent(MainActivity_liu.this, SearchResult_liu.class);
             Bundle goToTicket = new Bundle();
-            //Ticket selectedTicket = myAdapter.getItem(position);
             goToTicket.putLong("id", myAdapter.getItem(position).getId());
             goToTicket.putString("eventName", myAdapter.getItem(position).getEventName());
             goToTicket.putString("startDate", myAdapter.getItem(position).getStartDate());
@@ -92,23 +84,19 @@ public class MainActivity extends AppCompatActivity {
         {
             String cityToSearch = editViewCity.getText().toString();
             String radiusToSearch = editViewRadius.getText().toString();
-            //TicketQuery query = new TicketQuery(cityToSearch, radiusToSearch);
             Toast.makeText(MainActivity.this,"City:"+cityToSearch+" Radius:"+radiusToSearch,Toast.LENGTH_SHORT).show();
             doSearch(cityToSearch, radiusToSearch);
-            //query.execute();
-        });// ke neng yao gai
+        });
 
         Button favouriteButton = findViewById(R.id.favouriteButton);
-        //Intent goToFavourite = new Intent(MainActivity.this, FavouriteResult.class);
         favouriteButton.setOnClickListener(bt ->
-        {   /*goToProfile.putExtra("email", emailEditText.getText().toString());*/
+        {
             loadDataFromDatabase();
             myAdapter.notifyDataSetChanged();
             isFavourite = true;
             String msg = getResources().getString(R.string.displayFavorite);
             Snackbar snackbar = Snackbar.make(findViewById(R.id.main), msg, Snackbar.LENGTH_LONG);
             snackbar.show();
-            //startActivity(goToFavourite);
         });
     }
 
@@ -160,8 +148,6 @@ public class MainActivity extends AppCompatActivity {
         String [] columns = {MyOpener.COL_ID, MyOpener.COL_EVENT_NAME, MyOpener.COL_START_DATE, MyOpener.COL_PRICE_MAX, MyOpener.COL_PRICE_MIN, MyOpener.COL_URL, MyOpener.COL_IMG_URL};
         Cursor results = db.query(false, MyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
 
-        //Now the results object has rows of results that match the query.
-        //find the column indices:
         int idColIndex = results.getColumnIndex(MyOpener.COL_ID);
         int eventNameColumnIndex = results.getColumnIndex(MyOpener.COL_EVENT_NAME);
         int startDateColumnIndex = results.getColumnIndex(MyOpener.COL_START_DATE);
@@ -170,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
         int urlColumnIndex = results.getColumnIndex(MyOpener.COL_URL);
         int imgUrlColumnIndex = results.getColumnIndex(MyOpener.COL_IMG_URL);
 
-        //iterate over the results, return true if there is a next item:
         while(results.moveToNext())
         {
             long id = results.getLong(idColIndex);
@@ -180,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
             String min = results.getString(priceMinColumnIndex);
             String url = results.getString(urlColumnIndex);
             String imgUrl = results.getString(imgUrlColumnIndex);
-            //add the new Contact to the array list:
             elements.add(new Ticket(id, eventName, startDate, min, max, url, imgUrl));
         }
     }
@@ -193,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
         private String maxPrice;
         private String eventUrl;
         private String imgUrl;
-        //private Bitmap bitmap;
         private static final String TICKET_MASTER_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=rzBTum5fKPpuObmhHA6gkkZuRTYFnR0G ";
         private String city;
         private String radius;
@@ -202,17 +185,14 @@ public class MainActivity extends AppCompatActivity {
             this.city = city;
             this.radius = radius;
         }
-        //Type3                     Type1
+
         protected String doInBackground(String ... args) {
             String fullUrl = TICKET_MASTER_URL+"&city="+this.city+"&radius="+this.radius;
             try {
                 Log.e("Start","Start loading information ..");
                 elements.clear();
-                //create a URL object of what server to contact:
                 URL url = new URL(fullUrl);
-                //open the connection
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                //wait for data:
                 InputStream response = urlConnection.getInputStream();
                 InputStreamReader inputStreamReader = new InputStreamReader(response);
                 BufferedReader reader = new BufferedReader(inputStreamReader);
@@ -247,7 +227,6 @@ public class MainActivity extends AppCompatActivity {
             return "Done";
         }
 
-        //Type 2
         public void onProgressUpdate(Integer ... args) {
             Log.i("Calling back for data", "Integer=" + args[0]);
             pb_main.setVisibility(View.VISIBLE);
@@ -255,7 +234,6 @@ public class MainActivity extends AppCompatActivity {
             pb_main.setProgress(args[0]);
         }
 
-        //Type3
         public void onPostExecute(String fromDoInBackground) {
             pb_main.setVisibility(View.INVISIBLE);
             int i=0;

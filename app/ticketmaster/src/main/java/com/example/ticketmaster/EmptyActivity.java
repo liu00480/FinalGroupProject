@@ -19,5 +19,6 @@ public class EmptyActivity extends AppCompatActivity {
                 .replace(R.id.fragmentLocation, dFragment)
                 .commit();
     }
+
 }
 

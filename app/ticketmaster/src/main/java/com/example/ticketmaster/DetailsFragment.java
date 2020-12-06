@@ -36,7 +36,6 @@ public class DetailsFragment extends Fragment {
         dataFromActivity = getArguments();
         View result = inflater.inflate(R.layout.fragment_details, container, false);
 
-        //show the message
         TextView tv_eventName = result.findViewById(R.id.eventName);
         TextView tv_minPrice = result.findViewById(R.id.minPrice);
         TextView tv_maxPrice = result.findViewById(R.id.maxPrice);
@@ -88,8 +87,8 @@ public class DetailsFragment extends Fragment {
                 Toast toast = Toast.makeText(context, getResources().getString(R.string.saved_message)+" rowid = "+rowId, Toast.LENGTH_LONG );
                 toast.show();
             }
-            //parentActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
         });
+
         return result;
     }
 
@@ -127,7 +126,7 @@ public class DetailsFragment extends Fragment {
     public void DeleteTicket(Ticket ticket)
     {
         MyOpener dbOpener = new MyOpener(parentActivity);
-        SQLiteDatabase db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
+        SQLiteDatabase db = dbOpener.getWritableDatabase();
         db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + "= ?", new String[] {ticket.getId()+""});
         db.close();
     }
@@ -135,7 +134,7 @@ public class DetailsFragment extends Fragment {
     protected long InsertTicket(Ticket ticket)
     {
         MyOpener dbOpener = new MyOpener(parentActivity);
-        SQLiteDatabase db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
+        SQLiteDatabase db = dbOpener.getWritableDatabase();
 
         ContentValues newValues = new ContentValues();
         newValues.put(MyOpener.COL_EVENT_NAME, ticket.getEventName());
@@ -152,11 +151,7 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        //context will either be FragmentExample for a tablet, or EmptyActivity for phone
         parentActivity = (AppCompatActivity) context;
     }
-
-
 
 }
