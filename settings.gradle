@@ -1,2 +1,3 @@
+include ':recipesearchpage'
 include ':app'
 rootProject.name = "FinalGroupProject"
