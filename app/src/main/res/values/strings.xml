@@ -3,7 +3,7 @@
     <string name="recipesearchpage">Recipe Search Page  \nAuther: Huilin Fu \nVersion: 1.1.0</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="ticketmaster">TicketMaster event search  \nAuther: Junfeng Liu \nVersion: 0.0.1</string>
+    <string name="ticketmaster">TicketMaster event search  \nAuther: Junfeng Liu \nVersion: 1.1.1</string>
     <string name="covid19">Covid-19 case data  \nAuther: Jay Yu \nVersion: 0.0.1</string>
     <string name="audiodb">The Audio Database api \nAuther: Brahim Boubakar Toure \nVersion: 0.0.1</string>
 </resources>
