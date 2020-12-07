@@ -35,8 +35,12 @@ import java.util.ArrayList;
 /**
  * Junfeng Liu
  * 040954725
- *
- *
+ * CST2335_010
+ * Ticket Master
+ */
+
+/**
+ * Main activity class
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Ticket> elements = new ArrayList<>();
     SQLiteDatabase db;
 
+    /**
+     * Called when the activity is starting
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,12 +114,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     * @param menu The options menu in which you place your items.
+     * @return return true for the menu to be displayed.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.help, menu);
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     * @param item The menu item that was selected.
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
@@ -128,6 +146,12 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Called when an activity you launched exits.
+     * @param requestCode The integer request code originally supplied to startActivityForResult(), allowing you to identify who this result came from.
+     * @param resultCode The integer result code returned by the child activity through its setResult().
+     * @param data An Intent, which can return result data to the caller.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
@@ -137,6 +161,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * A method handle ticket query with city and radius
+     * @param city The first parameter
+     * @param radius THe second parameter
+     */
     private void doSearch(String city, String radius) {
         isFavourite = false;
         TicketQuery query = new TicketQuery(city, radius); //creates a background thread
@@ -146,6 +175,9 @@ public class MainActivity extends AppCompatActivity {
         snackbar.show();
     }
 
+    /**
+     * A method which load data from database
+     */
     private void loadDataFromDatabase() {
         elements.clear();
         MyOpener dbOpener = new MyOpener(this);
@@ -175,6 +207,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * AsyncTask for ticket query
+     */
     private class TicketQuery extends AsyncTask<String, Integer, String> {
 
         private String eventName;
@@ -187,11 +222,21 @@ public class MainActivity extends AppCompatActivity {
         private String city;
         private String radius;
 
+        /**
+         * TicketQurey constructor
+         * @param city
+         * @param radius
+         */
         public TicketQuery(String city, String radius) {
             this.city = city;
             this.radius = radius;
         }
 
+        /**
+         * Override this method to perform a computation on a background thread.
+         * @param args The parameters of the task.
+         * @return A result, defined by the subclass of this task.
+         */
         protected String doInBackground(String ... args) {
             String fullUrl = TICKET_MASTER_URL+"&city="+this.city+"&radius="+this.radius;
             try {
@@ -233,6 +278,10 @@ public class MainActivity extends AppCompatActivity {
             return "Done";
         }
 
+        /**
+         * Runs on the UI thread after publishProgress is invoked.
+         * @param args The values indicating progress.
+         */
         public void onProgressUpdate(Integer ... args) {
             Log.i("Calling back for data", "Integer=" + args[0]);
             pb_main.setVisibility(View.VISIBLE);
@@ -240,6 +289,10 @@ public class MainActivity extends AppCompatActivity {
             pb_main.setProgress(args[0]);
         }
 
+        /**
+         * Runs on the UI thread after doInBackground.
+         * @param fromDoInBackground The result of the operation computed by doInBackground.
+         */
         public void onPostExecute(String fromDoInBackground) {
             pb_main.setVisibility(View.INVISIBLE);
             int i=0;
@@ -251,6 +304,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called as part of the activity lifecycle when the user no longer actively interacts with the activity,
+     * but it is still visible on screen.
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -262,15 +319,36 @@ public class MainActivity extends AppCompatActivity {
 
     class MyListAdapter extends BaseAdapter {
 
+        /**
+         * The number of elements in the data set represented by this Adapter.
+         * @return count of elements.
+         */
         @Override
         public int getCount() { return elements.size(); }
 
+        /**
+         * Get the data item associated with the specified position in the data set.
+         * @param position Position of the item whose data we want within the adapter's data set.
+         * @return The data at the specified position.
+         */
         @Override
         public Ticket getItem(int position) { return elements.get(position); }
 
+        /**
+         * The element associated with database.
+         * @param position Position of the item whose data we want within database.
+         * @return the database id of row
+         */
         @Override
         public long getItemId(int position) { return elements.get(position).getId();}
 
+        /**
+         * Get the row id associated with the specified position in the list.
+         * @param position The position of the item within the adapter's data set whose row id we want.
+         * @param convertView
+         * @param parent
+         * @return The id of the item at the specified position.
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             Ticket ticket = getItem(position);

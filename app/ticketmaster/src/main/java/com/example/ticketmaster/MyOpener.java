@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Class handle database
+ */
 public class MyOpener extends SQLiteOpenHelper {
 
     protected final static String DATABASE_NAME = "TicketDB";
@@ -17,11 +20,19 @@ public class MyOpener extends SQLiteOpenHelper {
     public final static String COL_IMG_URL = "IMG_URL";
     public final static String COL_ID = "id";
 
+    /**
+     * Constructor
+     * @param ctx Context: used for locating paths to the the database.
+     */
     public MyOpener(Context ctx)
     {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
     }
 
+    /**
+     * Called when the activity is starting.
+     * @param db SQLiteDatabase: The database
+     */
     @Override
     public void onCreate(SQLiteDatabase db)
     {
@@ -36,6 +47,12 @@ public class MyOpener extends SQLiteOpenHelper {
                         );
     }
 
+    /**
+     * Called when the database needs to be upgraded.
+     * @param db SQLiteDatabase: The database
+     * @param oldVersion int: The old database version
+     * @param newVersion int: The new database version
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
@@ -43,6 +60,12 @@ public class MyOpener extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Called when the database needs to be downgraded.
+     * @param db SQLiteDatabase: The database
+     * @param oldVersion oldVersion int: The old database version
+     * @param newVersion newVersion int: The new database version
+     */
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {

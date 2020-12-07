@@ -24,12 +24,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import static android.app.Activity.RESULT_CANCELED;
 
+/**
+ * Create an instance of this fragment
+ */
 public class DetailsFragment extends Fragment {
 
     private Bundle dataFromActivity;
     private AppCompatActivity parentActivity;
     ImageView iv_imgUrl;
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container This is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState This fragment is being re-constructed from a previous saved state as given here.
+     * @return The View for the fragment's UI, or null.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -94,12 +104,21 @@ public class DetailsFragment extends Fragment {
 
     private class Image extends AsyncTask<String, Void, Bitmap> {
 
+        /**
+         * Override this method to perform a computation on a background thread.
+         * @param params The parameters of the task.
+         * @return A result, defined by the subclass of this task.
+         */
         @Override
         protected Bitmap doInBackground(String... params) {
             String url = params[0];
             return getBitmapFromURL(url);
         }
 
+        /**
+         * Runs on the UI thread after doInBackground.
+         * @param result The result of the operation computed by doInBackground.
+         */
         @Override
         protected void onPostExecute(Bitmap result) {
             iv_imgUrl.setImageBitmap (result);
@@ -108,6 +127,11 @@ public class DetailsFragment extends Fragment {
 
     }
 
+    /**
+     * handle the event's image url to bitmap
+     * @param imageUrl image url
+     * @return The bitmap of event
+     */
     private static Bitmap getBitmapFromURL(String imageUrl) {
         try {
             URL url = new URL(imageUrl);
@@ -123,6 +147,10 @@ public class DetailsFragment extends Fragment {
         }
     }
 
+    /**
+     * Delete ticket from database
+     * @param ticket The ticket will be delete
+     */
     public void DeleteTicket(Ticket ticket)
     {
         MyOpener dbOpener = new MyOpener(parentActivity);
@@ -131,6 +159,11 @@ public class DetailsFragment extends Fragment {
         db.close();
     }
 
+    /**
+     * Insert ticket from database
+     * @param ticket The ticket will be insert
+     * @return Row id of the ticket in database
+     */
     protected long InsertTicket(Ticket ticket)
     {
         MyOpener dbOpener = new MyOpener(parentActivity);
@@ -148,6 +181,10 @@ public class DetailsFragment extends Fragment {
         return rowId;
     }
 
+    /**
+     * Called when a fragment is first attached to its context. onCreate() will be called after this.
+     * @param context Context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
