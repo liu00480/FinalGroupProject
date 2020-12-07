@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //TODO: replace this package name with your ticketmaster project full name. then uncomments
                 // the following line.
 
-                Intent gotoTicket=getPackageManager().getLaunchIntentForPackage("com.example.ticketmaster");
-                startActivity(gotoTicket);
+                // Intent gotoAct=getPackageManager().getLaunchIntentForPackage("com.example.recipesearchpage");
+                // startActivity(gotoAct);
                 break;
             case R.id.recipesearchpage:
                 Intent gotoAct=getPackageManager().getLaunchIntentForPackage("com.example.recipesearchpage");
