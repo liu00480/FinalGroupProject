@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">安卓项目</string>
+    <!--Strings in activity_covid19_case.xml-->
+    <string name="covid_toast_message">新冠病毒数据板块</string>
+    <string name="btn_to_Covid19Case">新冠病毒确诊病例</string>
+
+    <string name="covid_activityTitle">新冠病毒数据</string>
+    <string name="covid_search">欢迎来到新冠病毒数据查询页面 </string>
+    <string name="covid_country_hint">国家</string>
+    <string name="covid_date_hint">时间</string>
+
+    <string name="covid_search_btn">查询</string>
+    <string name="covid_save_btn">保存</string>
+    <string name="covid_help_text">帮助</string>
+    <string name="covid_help_content">请输入国家和时间以查询每个省的病例.</string>
+    <string name="covid_yes">是的</string>
+
+    <string name="covidopen">开</string>
+    <string name="covidclose">关</string>
+
+    <!--strings in activity_province_detail.xml-->
+    <string name="covid_country">国家: </string>
+
+    <string name="covid_province">省份: </string>
+    <string name="covid_case">病例: </string>
+    <string name="covid_date">时间: </string>
+
+
+    <!--strings in covid_menu.xml-->
+    <string name="choice1">主页 </string>
+    <string name="choice2">保存数据 </string>
+    <string name="choice3">帮助 </string>
+    <string name="choice4">了解更多 </string>
+
+    <!--strings in header_covid.xml-->
+    <string name="covidtitle"> 新冠病毒数据查询</string>
+    <string name="covidauthor">作者: Jay Yu</string>
+    <string name="covidversion">Ver 2.0 </string>
+
+</resources>
