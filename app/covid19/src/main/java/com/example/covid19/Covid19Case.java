@@ -27,7 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.navigation.NavigationView;
+//import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,7 +46,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 
-public class Covid19Case extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class Covid19Case extends AppCompatActivity
 {
 
     private SharedPreferences prefs;
@@ -87,9 +87,9 @@ public class Covid19Case extends AppCompatActivity implements NavigationView.OnN
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setItemIconTintList(null);//this line avoids the icons to appear shaded gray
-        navigationView.setNavigationItemSelectedListener(this);
+//        NavigationView navigationView = findViewById(R.id.nav_view);
+//        navigationView.setItemIconTintList(null);//this line avoids the icons to appear shaded gray
+//        navigationView.setNavigationItemSelectedListener(this);
 
         /*
         save into query
@@ -225,10 +225,7 @@ public class Covid19Case extends AppCompatActivity implements NavigationView.OnN
         switch(item.getItemId())
         {
             //what to do when the menu item is selected:
-            case R.id.item1: //Go to Main page
-                startActivity(new Intent(Covid19Case.this, MainMenu.class));
-                message = "Go to Home Page";
-                break;
+
             case R.id.item2: //show saved results in database
                 //call loadDataFromDatabase()
                 loadDataFromDatabase();
@@ -261,11 +258,7 @@ public class Covid19Case extends AppCompatActivity implements NavigationView.OnN
         String message = null;
         switch(item.getItemId())
         {
-            case R.id.item1:
-                //Go to Main Page
-                startActivity(new Intent(Covid19Case.this, MainMenu.class));
-                message = "Go back to Home page";
-                break;
+
             case R.id.item2:
                 //show saved records in Database: country and date
                 loadDataFromDatabase();

@@ -19,11 +19,11 @@
     <string name="covidclose">close</string>
 
     <!--strings in activity_province_detail.xml-->
-    <string name="covid_country">Country: </string>
+<!--    <string name="covid_country">Country: </string>-->
 
-    <string name="covid_province">Province: </string>
-    <string name="covid_case">Case: </string>
-    <string name="covid_date">Date: </string>
+<!--    <string name="covid_province">Province: </string>-->
+<!--    <string name="covid_case">Case: </string>-->
+<!--    <string name="covid_date">Date: </string>-->
 
 
     <!--strings in covid_menu.xml-->
