@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">FinalGroupProject</string>
+    <string name="open" />
+    <string name="close" />
+
+
+    <color name="black">#000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="theme_green">#9BC765</color>
+    <item name="drawer_layout" type="id" />
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="surprise_for_you"> surprise for you</string>
+    <string name="click_here_to_see_your_gift"> click here to see your gift</string>
+    <string name="rateme"> rate me</string>
+    <string name="Exitapphere">Exit app here</string>
+    <string name="Startapp"> Start app</string>
+    <string name="toolbar_and_navigation_view"> choose your application here:</string>
+    <string name="WELCOME_TO_AUDIO_DATABASE_API"> WELCOME TO AUDIO DATABASE APIt</string>
+    <string name="searchforartisthere"> search for artist here</string>
+    <string name="typeartistnamehere"> type artist name here</string>
+    <string name="artistsearch"> artist search</string>
+    <string name="Albumsarelistedhere"> Albums are listed here</string>
+    <string name="albumName"> album Name</string>
+    <string name="AlbumID"> Album ID</string>
+    <string name="ArtistID"> Artist ID</string>
+    <string name="searchyoursonghere"> search your song here </string>
+    <string name="typefavoritesonghere"> type favorite song here</string>
+    <string name="songresearch"> song research"</string>
+    <string name="Addyouralbumhere">Add your album here</string>
+
+    <string name="Add"> Add</string>
+</resources>

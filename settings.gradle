@@ -1,3 +1,4 @@
+include ':app:audiodatabaseapi'
 include ':app:ticketmaster'
 include ':app'
 rootProject.name = "FinalGroupProject"

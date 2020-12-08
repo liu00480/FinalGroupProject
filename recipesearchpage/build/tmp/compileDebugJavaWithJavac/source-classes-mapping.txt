@@ -1,0 +1,15 @@
+com/example/recipesearchpage/BuildConfig.java
+ com.example.recipesearchpage.BuildConfig
+com/example/recipesearchpage/Empty.java
+ com.example.recipesearchpage.Empty
+com/example/recipesearchpage/MyOpener.java
+ com.example.recipesearchpage.MyOpener
+com/example/recipesearchpage/RecipeMainActivity.java
+ com.example.recipesearchpage.RecipeMainActivity
+ com.example.recipesearchpage.RecipeMainActivity$1
+ com.example.recipesearchpage.RecipeMainActivity$MyListAdapter
+ com.example.recipesearchpage.RecipeMainActivity$RecipeQuery
+com/example/recipesearchpage/RecipeInfo.java
+ com.example.recipesearchpage.RecipeInfo
+com/example/recipesearchpage/DetailsFragment.java
+ com.example.recipesearchpage.DetailsFragment

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_blank_fragment">salut blank fragment</string>
+    <string name="app_name">FinalGroupProject</string>
+    <string name="open" />
+    <string name="close" />
+    <string name="surprise_for_you"> surprise pour vous</string>
+    <string name="click_here_to_see_your_gift"> clicque ici pour voir ton cadeau</string>
+    <string name="rateme"> done moi un note</string>
+    <string name="Exitapphere"> sort application ici</string>
+    <string name="Startapp"> commence application</string>
+    <string name="toolbar_and_navigation_view"> choisis tes applications ici:</string>
+    <string name="WELCOME_TO_AUDIO_DATABASE_API"> Bienvenue a l\'audio database api</string>
+    <string name="searchforartisthere"> recherche artist ici</string>
+    <string name="typeartistnamehere"> ecris le nom de l\'artist ici</string>
+    <string name="artistsearch"> artiste recherche</string>
+    <string name="Albumsarelistedhere"> les albums song liste ici</string>
+    <string name="albumName"> le nom de l\'album</string>
+    <string name="AlbumID"> l\'album id</string>
+    <string name="ArtistID"> l\'artist id</string>
+    <string name="searchyoursonghere"> recherche votre song here</string>
+    <string name="typefavoritesonghere"> ecris votre song preferrer</string>
+    <string name="songresearch"> la recherche du song</string>
+    <string name="Addyouralbumhere"> ajoute ton album ici</string>
+
+    <string name="Add"> ajoute</string>
+
+
+</resources>
