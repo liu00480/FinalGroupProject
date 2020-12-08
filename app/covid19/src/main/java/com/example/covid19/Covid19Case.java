@@ -253,39 +253,39 @@ public class Covid19Case extends AppCompatActivity
     /* Needed for
      *the OnNavigationItemSelected interface
      */
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        String message = null;
-        switch(item.getItemId())
-        {
-
-            case R.id.item2:
-                //show saved records in Database: country and date
-                loadDataFromDatabase();
-                message = "Show saved data";
-                break;
-            case R.id.item3:
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-                alertDialogBuilder.setTitle(R.string.covid_help_text)
-                        .setMessage(R.string.covid_help_content)
-                        .setPositiveButton(R.string.covid_yes, (c, arg) -> {
-
-                        })
-                        .create().show();
-                message = "Show Help";
-                break;
-            case R.id.item4:
-                message = "Covid-19 Case Data";
-                break;
-
-        }
-        DrawerLayout drawerLayout = findViewById(R.id.covid_drawer_layout);
-        drawerLayout.closeDrawer(GravityCompat.START);
-
-        Toast.makeText(this, "NavigationDrawer: " + message, Toast.LENGTH_LONG).show();
-        return false;
-    }
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        String message = null;
+//        switch(item.getItemId())
+//        {
+//
+//            case R.id.item2:
+//                //show saved records in Database: country and date
+//                loadDataFromDatabase();
+//                message = "Show saved data";
+//                break;
+//            case R.id.item3:
+//                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+//
+//                alertDialogBuilder.setTitle(R.string.covid_help_text)
+//                        .setMessage(R.string.covid_help_content)
+//                        .setPositiveButton(R.string.covid_yes, (c, arg) -> {
+//
+//                        })
+//                        .create().show();
+//                message = "Show Help";
+//                break;
+//            case R.id.item4:
+//                message = "Covid-19 Case Data";
+//                break;
+//
+//        }
+//        DrawerLayout drawerLayout = findViewById(R.id.covid_drawer_layout);
+//        drawerLayout.closeDrawer(GravityCompat.START);
+//
+//        Toast.makeText(this, "NavigationDrawer: " + message, Toast.LENGTH_LONG).show();
+//        return false;
+//    }
     /*
      * save search result to database
      */
