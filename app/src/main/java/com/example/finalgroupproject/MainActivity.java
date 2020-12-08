@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //TODO: replace this package name with your ticketmaster project full name. then uncomments
                 // the following line.
 
-                // Intent gotoAct=getPackageManager().getLaunchIntentForPackage("com.example.recipesearchpage");
-                // startActivity(gotoAct);
+                Intent gotoCovid19=getPackageManager().getLaunchIntentForPackage("com.example.covid19");
+                startActivity(gotoCovid19);
                 break;
             case R.id.audiodb:
                 //TODO: replace this package name with your ticketmaster project full name. then uncomments
