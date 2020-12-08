@@ -19,7 +19,7 @@
     //TODO download icon and replace icon id
     <item android:id="@+id/covid19"
         android:title="@string/covid19"
-        android:icon="@drawable/recipe"
+        android:icon="@drawable/coronavirus"
         app:showAsAction="always"
         android:orderInCategory="200"/> <!-- This uses showAsAction=never, so look at title= parameter -->
 

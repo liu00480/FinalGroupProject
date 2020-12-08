@@ -12,6 +12,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/app/covid19" />
             <option value="$PROJECT_DIR$/app/ticketmaster" />
             <option value="$PROJECT_DIR$/recipesearchpage" />
           </set>

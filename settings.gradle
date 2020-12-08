@@ -1,4 +1,5 @@
 include ':recipesearchpage'
 include ':app'
 include ':app:ticketmaster'
+include ':app:covid19'
 rootProject.name = "FinalGroupProject"
