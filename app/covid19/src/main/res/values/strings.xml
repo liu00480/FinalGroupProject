@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Android Final</string>
+    <string name="app_name">Final Project</string>
     <!--Strings in activity_covid19_case.xml-->
     <string name="covid_toast_message">Covid-19 Case Data Activity</string>
     <string name="btn_to_Covid19Case">Covid-19 Cases</string>
@@ -18,12 +18,12 @@
     <string name="covidopen">open</string>
     <string name="covidclose">close</string>
 
-    <!--strings in activity_province_detail.xml-->
-<!--    <string name="covid_country">Country: </string>-->
+    strings in activity_province_detail.xml
+    <string name="covid_country">Country: </string>
 
-<!--    <string name="covid_province">Province: </string>-->
-<!--    <string name="covid_case">Case: </string>-->
-<!--    <string name="covid_date">Date: </string>-->
+    <string name="covid_province">Province: </string>
+    <string name="covid_case">Case: </string>
+    <string name="covid_date">Date: </string>
 
 
     <!--strings in covid_menu.xml-->

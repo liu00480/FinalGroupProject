@@ -221,7 +221,7 @@ public class Covid19Case extends AppCompatActivity implements NavigationView.OnN
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
-        //Look at your menu XML file. Put a case for every id in that file:
+        //Look at the menu XML file. Put a case for every id in that file:
         switch(item.getItemId())
         {
             //what to do when the menu item is selected:
